@@ -1146,7 +1146,7 @@
     </column>
     <column id="289" parent="286" name="content">
       <Position>2</Position>
-      <DataType>varchar(255)|0s</DataType>
+      <DataType>text|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
     <column id="290" parent="286" name="title">

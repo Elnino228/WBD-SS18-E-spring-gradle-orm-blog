@@ -83,4 +83,12 @@ public class BlogController {
         blogService.remove(blog.getId());
         return "redirect:blogs";
     }
+
+    @GetMapping("/view-blog/{id}")
+    public ModelAndView viewBlog(@PathVariable Long id){
+        Blog blog=blogService.findById(id);
+        ModelAndView modelAndView=new ModelAndView("/blog/view");
+        modelAndView.addObject("blog",blog);
+        return modelAndView;
+    }
 }
