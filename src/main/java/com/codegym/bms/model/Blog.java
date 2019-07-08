@@ -2,6 +2,7 @@ package com.codegym.bms.model;
 
 
 import javax.persistence.*;
+import java.util.Date;
 
 @Entity
 @Table(name="blogs")
@@ -13,6 +14,13 @@ public class Blog {
     private String title;
     private String content;
     private String writer;
+    private Date time;
+
+
+
+    @ManyToOne
+    @JoinColumn(name = "category_id")
+    private Category category;
 
     public Blog(){}
 
@@ -20,6 +28,7 @@ public class Blog {
         this.title = title;
         this.content = content;
         this.writer = writer;
+        this.time=new Date();
     }
 
     public Long getId() {
@@ -52,5 +61,21 @@ public class Blog {
 
     public void setWriter(String writer) {
         this.writer = writer;
+    }
+
+    public Category getCategory() {
+        return category;
+    }
+
+    public Date getTime() {
+        return time;
+    }
+
+    public void setTime(Date time) {
+        this.time = time;
+    }
+
+    public void setCategory(Category category) {
+        this.category = category;
     }
 }

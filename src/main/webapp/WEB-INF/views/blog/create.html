@@ -23,6 +23,15 @@
             <td><textarea cols="30" rows="1" th:field="*{writer}"/></td>
         </tr>
         <tr>
+            <td>Category:</td>
+            <td>
+                <select th:field="*{category}">
+                    <option th:each="c:${categories}" th:value="${c.id}" th:text="${c.name}"></option>
+                </select>
+            </td>
+        </tr>
+
+        <tr>
             <td>Content:</td>
             <td><textarea cols="30" rows="15" th:field="*{content}"/></td>
         </tr>

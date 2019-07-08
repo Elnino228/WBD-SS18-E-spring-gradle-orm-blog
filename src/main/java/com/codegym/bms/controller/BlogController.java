@@ -1,21 +1,32 @@
 package com.codegym.bms.controller;
 
 import com.codegym.bms.model.Blog;
+import com.codegym.bms.model.Category;
 import com.codegym.bms.service.BlogService;
+import com.codegym.bms.service.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 @Controller
 public class BlogController {
     @Autowired
     public BlogService blogService;
+
+    @Autowired
+    public CategoryService categoryService;
+
+    @ModelAttribute("categories")
+    public Iterable<Category> categories(){
+        return categoryService.findAll();
+    }
 
     @GetMapping("/create-blog")
     public ModelAndView showCreateForm() {
@@ -26,6 +37,7 @@ public class BlogController {
 
     @PostMapping("create-blog")
     public ModelAndView saveBlog(@ModelAttribute("blog") Blog blog) {
+        blog.setTime(new Date());
         blogService.save(blog);
 
         ModelAndView modelAndView = new ModelAndView("/blog/create");
@@ -35,8 +47,13 @@ public class BlogController {
     }
 
     @GetMapping("/blogs")
-    public ModelAndView listBlog() {
-        List<Blog> blogs = blogService.findAll();
+    public ModelAndView listBlog(@RequestParam("s") Optional<String> keyword, Pageable pageable) {
+        Page<Blog> blogs;
+        if (keyword.isPresent()){
+            blogs=blogService.findAllByTitleContaining(keyword.get(),pageable);
+        } else {
+            blogs=blogService.findAll(pageable);
+        }
         ModelAndView modelAndView = new ModelAndView("/blog/list");
         modelAndView.addObject("blogs", blogs);
         return modelAndView;
