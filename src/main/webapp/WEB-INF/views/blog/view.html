@@ -6,7 +6,7 @@
 </head>
 <body>
 <p>
-    <a href="/blogs">Blog list</a>
+    <a href="/admin/blogs">Blog list</a>
 </p>
 <form th:action="@{/view-blog}" th:object="${blog}" method="post">
     <input th:type="hidden" name="id" th:field="*{id}">
@@ -21,7 +21,7 @@
         </tr>
         <tr>
             <td>Category:</td>
-            <td th:text="${blog.getCategory()}"></td>
+            <td th:text="${blog.getCategory().getName()}"></td>
         </tr>
         <tr>
             <td>Content:</td>

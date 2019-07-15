@@ -8,6 +8,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.repository.Repository;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -21,7 +22,7 @@ public class RestController {
     @Autowired
     public CategoryService categoryService;
 
-    @GetMapping("/api/blogs")
+    @GetMapping(value = "/api/blogs", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Page<Blog>> listCategory(Pageable pageable){
         Page<Blog> blogs=blogService.findAll(pageable);
         return new ResponseEntity<Page<Blog>>(blogs, HttpStatus.OK);

@@ -1,6 +1,8 @@
 package com.codegym.bms.model;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.util.List;
 
@@ -14,6 +16,7 @@ public class Category {
 
     private String name;
 
+    @JsonIgnore
     @OneToMany(targetEntity = Blog.class)
     private List<Blog> blogs;
 

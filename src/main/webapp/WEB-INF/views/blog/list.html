@@ -1,11 +1,16 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
 </head>
 <body>
-<a href="/create-blog">Create new blog</a>
+<div sec:authorize="isAuthenticated()">
+    <a th:href="@{/logout}">Logout</a>
+</div>
+<div><a th:href="@{/}">Home</a></div>
+<a href="/admin/create-blog">Create new blog</a>
 <h1>Blogs</h1>
 <form>
     Search by first title:
@@ -27,9 +32,9 @@
             <td th:text="${blog.category.name}"></td>
             <td th:text="${blog.content}"></td>
             <td th:text="${blog.time}"></td>
-            <td><a th:href="@{/edit-blog/__${blog.id}__ }">Edit</a></td>
-            <td><a th:href="@{/delete-blog/__${blog.id}__}">Delete</a> </td>
-            <td><a th:href="@{/view-blog/__${blog.id}__}">View</a> </td>
+            <td><a th:href="@{/admin/edit-blog/__${blog.id}__ }">Edit</a></td>
+            <td><a th:href="@{/admin/delete-blog/__${blog.id}__}">Delete</a> </td>
+            <td><a th:href="@{/admin/view-blog/__${blog.id}__}">View</a> </td>
         </tr>
     </th:block>
 </table>

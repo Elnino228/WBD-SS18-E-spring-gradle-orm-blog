@@ -10,7 +10,7 @@
 <p>
     <a href="/blogs">Blog list</a>
 </p>
-<form th:action="@{/delete-blog}" th:object="${blog}" method="post">
+<form th:action="@{/admin/delete-blog}" th:object="${blog}" method="post">
     <input th:type="hidden" name="id" th:field="*{id}">
     <table>
         <tr>
